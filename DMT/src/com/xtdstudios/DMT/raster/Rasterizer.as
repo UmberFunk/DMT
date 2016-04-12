@@ -100,9 +100,9 @@ package com.xtdstudios.DMT.raster
             m_allow4096Textures = value;
 		}
 
-		private function checkIfShouldStop(instanceName:String):Boolean
+		private function checkIfShouldStop(dispObjCont:DisplayObject):Boolean
 		{
-			return (stopRasterNames==null) || (stopRasterNames.indexOf(instanceName)>-1);
+			return (getQualifiedClassName(dispObjCont).indexOf("_s") == getQualifiedClassName(dispObjCont).length - 2);
 		}
 
 		public function rasterize(dispObj:DisplayObject, maxDepth:int=-1):RasterizationResultTree
@@ -184,7 +184,7 @@ package com.xtdstudios.DMT.raster
 			var asMovieClip		: MovieClip = currentDispObj as MovieClip;
 			var totalFrames		: int = asMovieClip ? asMovieClip.totalFrames : 1;
 			
-			if (isFramesMode==false && totalFrames==1 && dispObjCont!=null && inDepthRange && hasFilters==false && (checkIfShouldStop(dispObjCont.name)==false))
+			if (isFramesMode==false && totalFrames==1 && dispObjCont!=null && inDepthRange && hasFilters==false && (checkIfShouldStop(dispObjCont)==false))
 			{
 				var numChildren : int = dispObjCont.numChildren;
 				if (numChildren>0)
